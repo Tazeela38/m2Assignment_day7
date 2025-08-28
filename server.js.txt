@@ -1,0 +1,28 @@
+// Import Express
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+// Hardcoded array of students
+const students = [
+    { id: 1, name: "Alice", course: "Node.js" },
+    { id: 2, name: "Bob", course: "React" },
+    { id: 3, name: "Charlie", course: "Python" }
+];
+
+// Dynamic route using Route Parameter
+app.get('/student/:id', (req, res) => {
+    const studentId = parseInt(req.params.id);
+    const student = students.find(stu => stu.id === studentId);
+
+    if (student) {
+        res.json(student);
+    } else {
+        res.status(404).json({ message: "Student not found" });
+    }
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
